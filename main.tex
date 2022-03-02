@@ -219,4 +219,22 @@ $$\Delta f(t_1,t_2,X_1,X_2) = \frac{\partial f}{\partial x}(t_1,X_1) *[t_2-t_1] 
 
 $$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_1) * {[X_2-X_1]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_1) *[t_2-t_1]*[X_2-X_1]$$
 
+\subsubsection{Maybe found the answer?}
+
+Here we notice that $X_t$ is also a function of t. So our Taylor series and chain rule might be a little different.  In particular, if we let t go very small, there might be some behavior in x that could help us. 
+
+What if $f$ is a function of $t$ and $x$, but $x$ is also a function of $t$? I think that's what's going on in our problem.  So we have:
+
+$$\Delta f(t_1,t_2,X_{t_1},X_{t_2}) = \frac{\partial f}{\partial x}(t_1,X_{t_1}) *[t_2-t_1] + \frac{\partial f}{\partial y}(t_1,X_{t_1}) *[X_{t_2}-X_{t_1}]  + ... $$
+
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_{t_1}) * {[X_{t_2}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_{t_1}) *[t_2-t_1]*[X_{t_2}-X_{t_1}]$$
+
+But now if we know $X_t$, this is a function of only $t_1$ and $t_2$.  And then we can say $t_2 = t_1 + h$.
+
+$$\Delta f(t_1,h) = \frac{\partial f}{\partial x}(t_1,X_{t_1}) *h + \frac{\partial f}{\partial y}(t_1,X_{t_1}) *[X_{t_1+h}-X_{t_1}]  + ... $$
+
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_{t_1}) * {[X_{t_1+h}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_{t_1}) *h*[X_{t_1+h}-X_{t_1}]$$
+
+Can we divide by $h$ and let it go to zero? Can we get some sort of derivative? I think maybe we can. The only problem is brownian motion isn't differentiable, so probably not technically, but in a differentiable process, we would be able to.
+
 \end{document}
