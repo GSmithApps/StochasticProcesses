@@ -149,92 +149,71 @@ And those integration constants are deterministic (i.e. they are just numbers).
 
 \section{Ito Processes}
 
-Let's say we have a function $f(t,x)$.  The first argument will stay as time, but the second argument will have a stochastic process $X_t$ plugged in, and the output will now be a stochastic process: $Z_t = f(t,X_t)$.  Our goal will be to find the derivative (or differential) of this process, $dZ_t$. The first thing we will do is expand $f$ using the first two terms of a Taylor Series. That gives us:
+\subsection{Intro}
 
-$$df = \frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial t} dt + \frac{1}{2}\frac{\partial^2 f}{\partial x^2} dx^2 + \frac{1}{2}\frac{\partial^2 f}{\partial t^2} dt^2 + \frac{\partial^2 f}{\partial x \partial t} dx dt$$
+Let's say we have a function $f(t,x)$.  The first argument will stay as time, but the second argument will have a stochastic process $X_t$ plugged in, and the output will now be a stochastic process: $Z_t = f(t,X_t)$.  Our goal will be to get this stochastic process from form that may come up from a problem or from a derivation into a form that's easy to compute with -- i.e. the ito process form:
 
-And I think it's helpful to explicitly write the arguments:
+$$Z_t = Z_0 + \int_{0}^{t} u_s ds + \int_{0}^{t} \sigma_s dW_t$$
 
-$$df(t,x) = \frac{\partial f}{\partial x}(t,x) dx + \frac{\partial f}{\partial t}(t,x) dt + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(t,x) dx^2 + \frac{1}{2}\frac{\partial^2 f}{\partial t^2}(t,x) dt^2 + \frac{\partial^2 f}{\partial x \partial t}(t,x) dx dt$$
+\subsection{Derivation}
 
-\subsection{Interlude on Taylor Series and Composition}
+Let's try to approximate $f$ with a Taylor Series.  The statement is the following (and accompanied with the same thing with explicit dependencies):
 
-Let's start as simply as we can: with only one dimension, $f(x)$ and only one degree of approximation:
+$$\Delta f = \frac{df}{dt} * \Delta t$$
+$$\Delta f(t, \Delta t) = \frac{df}{dt}(t) * \Delta t$$
 
-$$df = \frac{df}{dx} * dx$$
+Where $\Delta f$ is the name of a function, and it now depends on two things: $x$ and $\Delta t$.  What about an approximation with a second order term?  In one dimension, we could have:
 
-We should probably be a little careful because this is just for intuitive content and it isn't a real statement mathematically.  But continuing, we can explicitly state the dependencies:
-
-$$df(x) = \frac{df}{dx}(x) * dx$$
-
-Notice that $f$ is a function of $x$, but also in this case, we are viewing $df$ as a function, and it is dependent on $x$, so it is $df(x)$ where $df$ is the name of a function.
-
-Now let's make the distance finite. It might be easier to see here because we can make an actual mathematical statement.  The statement is the following (and accompanied with the same thing with explicit dependencies):
-
-$$\Delta f = \frac{df}{dx} * \Delta x$$
-$$\Delta f(x, \Delta x) = \frac{df}{dx}(x) * \Delta x$$
-
-Where $\Delta f$ is the name of a function, and it now depends on two things: $x$ and $\Delta x$.  Because we're used to seeing functions and arguments written as single letters, it might be easiest to understand this if we write it as:
-
-$$ f_\Delta = \frac{df}{dx} * h$$
-$$ f_\Delta(x, h) = \frac{df}{dx}(x) * h$$
-
-
-
-We could also divide both sides by $h$ to get another version of the statement:
-
-$$\frac{ f_\Delta(x, h)}{h} = \frac{df}{dx}(x)$$
-
-Which again, is valid. 
-
-Let's say we wanted to partially evaluate this at, say, 4. We would get
-
-$$ f_\Delta(4, h) = \frac{df}{dx}(4) * h$$
-
-So let's do an example. What if $f(x) = x^2$?  Then $f'(x) = 2x$, and we would have $f_\Delta(x, h) = 2xh$.  We know that if $h = 1$ then we have our standard derivative.
-
-What about an approximation with a second approximation term?  In one dimension, we could have:
-
-$$\Delta f = \frac{df}{dx} * \Delta x + \frac{1}{2} \frac{d^2f}{dx^2} \Delta x ^2$$
+$$\Delta f = \frac{df}{dt} * \Delta t + \frac{1}{2} \frac{d^2f}{dt^2} \Delta t ^2$$
 
 And in two dimensions, we would have: 
 
-$$\Delta f = \frac{\partial f}{\partial x} \Delta x + \frac{\partial f}{\partial y} \Delta y + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2} {\Delta x}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2} {\Delta y}^2 +  \frac{\partial^2 f}{\partial xy} \Delta x\Delta y$$
+$$\Delta f = \frac{\partial f}{\partial t} \Delta t + \frac{\partial f}{\partial x} \Delta x + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta x}^2 +  \frac{\partial^2 f}{\partial tx} \Delta t\Delta x$$
 
 And with dependencies stated explicitly:
 
-$$\Delta f(x,y,\Delta x,\Delta y) = \frac{\partial f}{\partial x}(x,y) \Delta x + \frac{\partial f}{\partial y}(x,y) \Delta y  + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(x,y) {\Delta x}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(x,y) {\Delta y}^2 +  \frac{\partial^2 f}{\partial xy}(x,y) \Delta x\Delta y$$
+$$\Delta f(t,x,\Delta t,\Delta x) = \frac{\partial f}{\partial t}(t,x) \Delta t + \frac{\partial f}{\partial x}(t,x) \Delta x  + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta x}^2 +  \frac{\partial^2 f}{\partial tx}(t,x) \Delta t\Delta x$$
 
-Or if we wanted to write it a little differently, instead of using $\Delta$ notation on $x, y$, we could write them at times 1 and 2:
+Or if we wanted to write it a little differently, instead of using $\Delta$ notation on $t, x$, we could write them at times 1 and 2:
 
-$$\Delta f(x_1,x_2,y_1,y_2) = \frac{\partial f}{\partial x}(x_1,y_1) *[x_2-x_1] + \frac{\partial f}{\partial y}(x_1,y_1) *[y_2-y_1]  + ... $$
+$$\Delta f(t_1,t_2,x_1,x_2) = \frac{\partial f}{\partial t}(t_1,x_1) *[t_2-x_1] + \frac{\partial f}{\partial x}(t_1,x_1) *[x_2-x_1]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(x_1,y_1) * {[x_2-x_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(x_1,y_1) * {[y_2-y_1]}^2 +  \frac{\partial^2 f}{\partial xy}(x_1,y_1) *[x_2-x_1]*[y_2-y_1]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,x_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,x_1) * {[x_2-x_1]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,x_1) *[t_2-t_1]*[x_2-x_1]$$
 
-What is the benefit of this different notation instead of the deltas? The benefit is that now it's obvious that when you replace the $x$s or $y$s, you replace the first and second, i.e. you replace the value and the d, rather than just the value. 
+What is the benefit of this different notation instead of the deltas? The benefit is that now it's obvious that when you replace the $t$s or $x$s, you replace the first and second, i.e. you replace the value and the $d$, rather than just the value. 
 
-Now I'm just going to change the name of the variables from $x$ to $t$ and from $y$ to $X_t$
+Now I'm just going to plug in the stochastic $X_t$ for $x$
 
-$$\Delta f(t_1,t_2,X_1,X_2) = \frac{\partial f}{\partial x}(t_1,X_1) *[t_2-t_1] + \frac{\partial f}{\partial y}(t_1,X_1) *[X_2-X_1]  + ... $$
+$$\Delta f(t_1,t_2,X_1,X_2) = \frac{\partial f}{\partial t}(t_1,X_1) *[t_2-t_1] + \frac{\partial f}{\partial x}(t_1,X_1) *[X_2-X_1]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_1) * {[X_2-X_1]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_1) *[t_2-t_1]*[X_2-X_1]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_1) * {[X_2-X_1]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,X_1) *[t_2-t_1]*[X_2-X_1]$$
 
-\subsubsection{Maybe found the answer?}
+Here we notice that $X_t$ is also a function of t. So our Taylor series and chain rule can be a little different.  In particular, if we let $\Delta t$ go very small, there might be some behavior in $X_t$ that could help us. What if $f$ is a function of $t$ and $x$, but $X_t$ is also a function of $t$? I think that's what's going on in our problem.  So we have:
 
-Here we notice that $X_t$ is also a function of t. So our Taylor series and chain rule might be a little different.  In particular, if we let t go very small, there might be some behavior in x that could help us. 
+$$\Delta f(t_1,t_2,X_{t_1},X_{t_2}) = \frac{\partial f}{\partial t}(t_1,X_{t_1}) *[t_2-t_1] + \frac{\partial f}{\partial x}(t_1,X_{t_1}) *[X_{t_2}-X_{t_1}]  + ... $$
 
-What if $f$ is a function of $t$ and $x$, but $x$ is also a function of $t$? I think that's what's going on in our problem.  So we have:
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_{t_1}) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {[X_{t_2}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,X_{t_1}) *[t_2-t_1]*[X_{t_2}-X_{t_1}]$$
 
-$$\Delta f(t_1,t_2,X_{t_1},X_{t_2}) = \frac{\partial f}{\partial x}(t_1,X_{t_1}) *[t_2-t_1] + \frac{\partial f}{\partial y}(t_1,X_{t_1}) *[X_{t_2}-X_{t_1}]  + ... $$
+But now if we know $X_t$, this is a function of only $t_1$ and $t_2$.  And then we can say $t_2 = t_1 + h$. We can also start calling $t_1$ just $t$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_{t_1}) * {[X_{t_2}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_{t_1}) *[t_2-t_1]*[X_{t_2}-X_{t_1}]$$
+$$\Delta f(t,h) = \frac{\partial f}{\partial t}(t,X_{t}) *h + \frac{\partial f}{\partial x}(t,X_{t}) *[X_{t+h}-X_{t}]  + ... $$
 
-But now if we know $X_t$, this is a function of only $t_1$ and $t_2$.  And then we can say $t_2 = t_1 + h$.
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,X_{t}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t,X_{t}) * {[X_{t+h}-X_{t}]}^2 +  \frac{\partial^2 f}{\partial tx}(t,X_{t}) *h*[X_{t+h}-X_{t}]$$
 
-$$\Delta f(t_1,h) = \frac{\partial f}{\partial x}(t_1,X_{t_1}) *h + \frac{\partial f}{\partial y}(t_1,X_{t_1}) *[X_{t_1+h}-X_{t_1}]  + ... $$
+At this point, we are ready (in a pretty mathematically justifiable way) to do an integration. We'll start at $t=0$ and go up to an arbitrary $t$.  And during this process, we'll add up very small $\Delta f$ values until we get the actual change from $t=0$ to $t$, which will just give us the value at $t$ (assuming we know the value at $t=0$, which we'll assume we do).  It is not obvious yet, but if we can do that, we'll be a lot closer to having our function of $t$ that we want, $Z_t$. 
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial y}^2}(t_1,X_{t_1}) * {[X_{t_1+h}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial xy}(t_1,X_{t_1}) *h*[X_{t_1+h}-X_{t_1}]$$
+So let's say we have $n$ partitions of our interval $[0,t]$, and we add up $n$ versions of $\Delta f$ values.  Then our $t$ and $h$ would be:
 
-Can we divide by $h$ and let it go to zero? Can we get some sort of derivative? I think maybe we can. The only problem is brownian motion isn't differentiable, so probably not technically, but in a differentiable process, we would be able to.
+$$t = \frac{it}{n}, h = \frac{t}{n}$$
+
+$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \frac{\partial f}{\partial x}(ih,X_{ih}) *[X_{ih+h}-X_{ih}]  + ... $$
+
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {[X_{ih+h}-X_{ih}]}^2 +  \frac{\partial^2 f}{\partial tx}(ih,X_{ih}) *h*[X_{ih+h}-X_{ih}]$$
+
+Where the summation is applied to both lines of the equation.  Now if we let $n$ go to $\infty$, we get $Z_t^{\infty}$:
+
+$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) dX_s  + \frac{1}{2}\int_{s=0}^{s=t}\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  {dX_s}^2 $$
+
+
 
 \end{document}
