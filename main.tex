@@ -210,10 +210,32 @@ $$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \fra
 
 $$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {[X_{ih+h}-X_{ih}]}^2 +  \frac{\partial^2 f}{\partial tx}(ih,X_{ih}) *h*[X_{ih+h}-X_{ih}]$$
 
-Where the summation is applied to both lines of the equation.  Now if we let $n$ go to $\infty$, we get $Z_t^{\infty}$:
+where the summation goes across all of the terms following it including the terms on the second line. Now we use the fact that $X_t$ is an ITO Process given by:
 
-$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) dX_s  + \frac{1}{2}\int_{s=0}^{s=t}\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  {dX_s}^2 $$
+$$X_t = a + \int_{s=0}^{s=t} \mu_sds + \int_{s=0}^{s=t} \sigma_sdW_s$$
 
+And finding the difference between times $t$ and $t+h$:
 
+$$X_{t+h} - X_t = a + \int_{s=0}^{s=t+h} \mu_sds + \int_{s=0}^{s=t+h} \sigma_sdW_s - \left(a + \int_{s=0}^{s=t} \mu_sds + \int_{s=0}^{s=t} \sigma_sdW_s\right) = $$
+
+$$ =  X_{t+h} - X_t = \int_{s=t}^{s=t+h} \mu_sds + \int_{s=t}^{s=t+h} \sigma_sdW_s$$
+
+And plugging into the above equation, we get:
+
+$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \frac{\partial f}{\partial x}(ih,X_{ih}) *\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]  +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2  + ... $$
+
+$$... + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 +  \frac{\partial^2 f}{\partial tx}(ih,X_{ih}) *h*\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]$$
+
+Now if we let $n$ go to $\infty$, we get $Z_t^{\infty}$:
+
+$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \lim \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]    + ... $$
+
+$$... + \lim \sum_{i=1}^{i = n}\frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 $$
+
+Which, simplifying again (and this is where I stopped for the night):
+
+$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \frac{\partial f}{\partial x}(t,X_{t}) *\left[\int_{s=0}^{s=t} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]    + ... $$
+
+$$... + \lim \sum_{i=1}^{i = n}\frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 =$$
 
 \end{document}
