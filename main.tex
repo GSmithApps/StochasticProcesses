@@ -151,9 +151,15 @@ And those integration constants are deterministic (i.e. they are just numbers).
 
 \subsection{Intro}
 
-Let's say we have a function $f(t,x)$.  The first argument will stay as time, but the second argument will have a stochastic process $X_t$ plugged in, and the output will now be a stochastic process: $Z_t = f(t,X_t)$.  Our goal will be to get this stochastic process from form that may come up from a problem or from a derivation into a form that's easy to compute with -- i.e. the ito process form:
+If you have a stochastic process that can be written \textbf{\emph{as a function of}} Ito processes, a.k.a. it can be written \textbf{\emph{in terms of}} Ito processes, then you can write it \textbf{\emph{as}} an Ito Process. And that's what Ito's formula tells us how to do.  This is the equation of an Ito process:
 
 $$Z_t = Z_0 + \int_{0}^{t} u_s ds + \int_{0}^{t} \sigma_s dW_t$$
+
+So if we have a stochastic process given to us in terms of an Ito process like above, then we can write it as above. Mathematically, that means we have a process $Z_t = f(t,X_t)$ where $X_t$ is an Ito process, and we will show that this new stochastic process is itself an Ito process, and we will be able to explicitly state its formula.  This is done with Ito's formula:
+
+$$Z_t = f(t,X_t) = a + \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s) + \frac{1}{2}{\sigma _s}^2\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  ds + \int_{s=0}^{s=t}\sigma_s\frac{\partial f}{\partial x}(s,X_s) dW_s   $$
+
+Which, you will notice, is in the form of an Ito process, which is the goal.  It helps us transform an arbitrary process written in terms of an Ito process ($Z_t$ or $f(t,X_t)$) into an explicitly stated Ito process.
 
 \subsection{Derivation}
 
@@ -200,7 +206,7 @@ $$\Delta f(t,h) = \frac{\partial f}{\partial t}(t,X_{t}) *h + \frac{\partial f}{
 
 $$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,X_{t}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t,X_{t}) * {[X_{t+h}-X_{t}]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t,X_{t}) *h*[X_{t+h}-X_{t}]$$
 
-Now we use the fact that $X_t$ is an ITO Process given by:
+Now we use the fact that $X_t$ is an Ito Process given by:
 
 $$X_t = a + \int_{s=0}^{s=t} \mu_sds + \int_{s=0}^{s=t} \sigma_sdW_s$$
 
@@ -216,7 +222,7 @@ $$P_t := \int_{s=0}^{s=t} \mu_sds$$
 $$Q_t := \int_{s=0}^{s=t} \sigma_sdW_s$$
 $$  X_{t+h} - X_t = P_{t+h} -P_t+ Q_{t+h} - Q_t$$
 
-Now plug this in for the step above the ITO Process. 
+Now plug this in for the step above the Ito Process. 
 
 $$\Delta f(t,h) = \frac{\partial f}{\partial t}(t,X_{t}) *h + \frac{\partial f}{\partial x}(t,X_{t}) *[P_{t+h} -P_t+ Q_{t+h} - Q_t]  + ... $$
 
@@ -291,10 +297,10 @@ $$Z_t^\infty = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial
 
 $$...  +  \frac{1}{2}\int_{s=0}^{s=t}\frac{\partial^2 f}{{\partial x}^2}(s,X_s) {\sigma _s}^2 ds $$
 
-And now we can combine like terms again, and we have ito's formula:
+And now we can combine like terms again, and we have Ito's formula:
 
 
-$$Z_t = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s) + \frac{1}{2}{\sigma _s}^2\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  ds + \int_{s=0}^{s=t}\sigma_s\frac{\partial f}{\partial x}(s,X_s) dW_s   $$
+$$Z_t = f(t,X_t) = a + \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s) + \frac{1}{2}{\sigma _s}^2\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  ds + \int_{s=0}^{s=t}\sigma_s\frac{\partial f}{\partial x}(s,X_s) dW_s   $$
 
 
 \end{document}
