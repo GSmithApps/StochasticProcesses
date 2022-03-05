@@ -168,17 +168,17 @@ $$\Delta f = \frac{df}{dt} * \Delta t + \frac{1}{2} \frac{d^2f}{dt^2} \Delta t ^
 
 And in two dimensions, we would have: 
 
-$$\Delta f = \frac{\partial f}{\partial t} \Delta t + \frac{\partial f}{\partial x} \Delta x + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta x}^2 +  \frac{\partial^2 f}{\partial tx} \Delta t\Delta x$$
+$$\Delta f = \frac{\partial f}{\partial t} \Delta t + \frac{\partial f}{\partial x} \Delta x + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2} {\Delta x}^2 +  \frac{\partial^2 f}{\partial t \partial x} \Delta t\Delta x$$
 
 And with dependencies stated explicitly:
 
-$$\Delta f(t,x,\Delta t,\Delta x) = \frac{\partial f}{\partial t}(t,x) \Delta t + \frac{\partial f}{\partial x}(t,x) \Delta x  + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta x}^2 +  \frac{\partial^2 f}{\partial tx}(t,x) \Delta t\Delta x$$
+$$\Delta f(t,x,\Delta t,\Delta x) = \frac{\partial f}{\partial t}(t,x) \Delta t + \frac{\partial f}{\partial x}(t,x) \Delta x  + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta t}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,x) {\Delta x}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t,x) \Delta t\Delta x$$
 
 Or if we wanted to write it a little differently, instead of using $\Delta$ notation on $t, x$, we could write them at times 1 and 2:
 
 $$\Delta f(t_1,t_2,x_1,x_2) = \frac{\partial f}{\partial t}(t_1,x_1) *[t_2-x_1] + \frac{\partial f}{\partial x}(t_1,x_1) *[x_2-x_1]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,x_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,x_1) * {[x_2-x_1]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,x_1) *[t_2-t_1]*[x_2-x_1]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,x_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,x_1) * {[x_2-x_1]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t_1,x_1) *[t_2-t_1]*[x_2-x_1]$$
 
 What is the benefit of this different notation instead of the deltas? The benefit is that now it's obvious that when you replace the $t$s or $x$s, you replace the first and second, i.e. you replace the value and the $d$, rather than just the value. 
 
@@ -186,31 +186,21 @@ Now I'm just going to plug in the stochastic $X_t$ for $x$
 
 $$\Delta f(t_1,t_2,X_1,X_2) = \frac{\partial f}{\partial t}(t_1,X_1) *[t_2-t_1] + \frac{\partial f}{\partial x}(t_1,X_1) *[X_2-X_1]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_1) * {[X_2-X_1]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,X_1) *[t_2-t_1]*[X_2-X_1]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_1) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_1) * {[X_2-X_1]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t_1,X_1) *[t_2-t_1]*[X_2-X_1]$$
 
 Here we notice that $X_t$ is also a function of t. So our Taylor series and chain rule can be a little different.  In particular, if we let $\Delta t$ go very small, there might be some behavior in $X_t$ that could help us. What if $f$ is a function of $t$ and $x$, but $X_t$ is also a function of $t$? I think that's what's going on in our problem.  So we have:
 
 $$\Delta f(t_1,t_2,X_{t_1},X_{t_2}) = \frac{\partial f}{\partial t}(t_1,X_{t_1}) *[t_2-t_1] + \frac{\partial f}{\partial x}(t_1,X_{t_1}) *[X_{t_2}-X_{t_1}]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_{t_1}) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {[X_{t_2}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial tx}(t_1,X_{t_1}) *[t_2-t_1]*[X_{t_2}-X_{t_1}]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t_1,X_{t_1}) * {[t_2-t_1]}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t_1,X_{t_1}) * {[X_{t_2}-X_{t_1}]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t_1,X_{t_1}) *[t_2-t_1]*[X_{t_2}-X_{t_1}]$$
 
 But now if we know $X_t$, this is a function of only $t_1$ and $t_2$.  And then we can say $t_2 = t_1 + h$. We can also start calling $t_1$ just $t$
 
 $$\Delta f(t,h) = \frac{\partial f}{\partial t}(t,X_{t}) *h + \frac{\partial f}{\partial x}(t,X_{t}) *[X_{t+h}-X_{t}]  + ... $$
 
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,X_{t}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t,X_{t}) * {[X_{t+h}-X_{t}]}^2 +  \frac{\partial^2 f}{\partial tx}(t,X_{t}) *h*[X_{t+h}-X_{t}]$$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,X_{t}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t,X_{t}) * {[X_{t+h}-X_{t}]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t,X_{t}) *h*[X_{t+h}-X_{t}]$$
 
-At this point, we are ready (in a pretty mathematically justifiable way) to do an integration. We'll start at $t=0$ and go up to an arbitrary $t$.  And during this process, we'll add up very small $\Delta f$ values until we get the actual change from $t=0$ to $t$, which will just give us the value at $t$ (assuming we know the value at $t=0$, which we'll assume we do).  It is not obvious yet, but if we can do that, we'll be a lot closer to having our function of $t$ that we want, $Z_t$. 
-
-So let's say we have $n$ partitions of our interval $[0,t]$, and we add up $n$ versions of $\Delta f$ values.  Then our $t$ and $h$ would be:
-
-$$t = \frac{it}{n}, h = \frac{t}{n}$$
-
-$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \frac{\partial f}{\partial x}(ih,X_{ih}) *[X_{ih+h}-X_{ih}]  + ... $$
-
-$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {[X_{ih+h}-X_{ih}]}^2 +  \frac{\partial^2 f}{\partial tx}(ih,X_{ih}) *h*[X_{ih+h}-X_{ih}]$$
-
-where the summation goes across all of the terms following it including the terms on the second line. Now we use the fact that $X_t$ is an ITO Process given by:
+Now we use the fact that $X_t$ is an ITO Process given by:
 
 $$X_t = a + \int_{s=0}^{s=t} \mu_sds + \int_{s=0}^{s=t} \sigma_sdW_s$$
 
@@ -218,24 +208,93 @@ And finding the difference between times $t$ and $t+h$:
 
 $$X_{t+h} - X_t = a + \int_{s=0}^{s=t+h} \mu_sds + \int_{s=0}^{s=t+h} \sigma_sdW_s - \left(a + \int_{s=0}^{s=t} \mu_sds + \int_{s=0}^{s=t} \sigma_sdW_s\right) = $$
 
-$$ =  X_{t+h} - X_t = \int_{s=t}^{s=t+h} \mu_sds + \int_{s=t}^{s=t+h} \sigma_sdW_s$$
+$$ =  X_{t+h} - X_t = \int_{s=0}^{s=t+h} \mu_sds - \int_{s=0}^{s=t} \mu_sds+ \int_{s=0}^{s=t+h} \sigma_sdW_s - \int_{s=0}^{s=t} \sigma_sdW_s$$
 
-And plugging into the above equation, we get:
+We now make a temporary notation switch so our work in a few steps will be cleaner, and we will substitute it in:
 
-$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \frac{\partial f}{\partial x}(ih,X_{ih}) *\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]  +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2  + ... $$
+$$P_t := \int_{s=0}^{s=t} \mu_sds$$
+$$Q_t := \int_{s=0}^{s=t} \sigma_sdW_s$$
+$$  X_{t+h} - X_t = P_{t+h} -P_t+ Q_{t+h} - Q_t$$
 
-$$... + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 +  \frac{\partial^2 f}{\partial tx}(ih,X_{ih}) *h*\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]$$
+Now plug this in for the step above the ITO Process. 
 
-Now if we let $n$ go to $\infty$, we get $Z_t^{\infty}$:
+$$\Delta f(t,h) = \frac{\partial f}{\partial t}(t,X_{t}) *h + \frac{\partial f}{\partial x}(t,X_{t}) *[P_{t+h} -P_t+ Q_{t+h} - Q_t]  + ... $$
 
-$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \lim \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]    + ... $$
+$$... +  \frac{1}{2}\frac{\partial^2 f}{{\partial t}^2}(t,X_{t}) * {h}^2 + \frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(t,X_{t}) * {[P_{t+h} -P_t+ Q_{t+h} - Q_t]}^2 +  \frac{\partial^2 f}{\partial t \partial x}(t,X_{t}) *h*[P_{t+h} -P_t+ Q_{t+h} - Q_t]$$
 
-$$... + \lim \sum_{i=1}^{i = n}\frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 $$
+At this point, we are ready (in a pretty mathematically justifiable way) to do an integration. We'll start at $t=0$ and go up to an arbitrary $t$.  And during this process, we'll add up very small $\Delta f$ values until we get the actual change from $t=0$ to $t$, which will just give us the value at $t$ (assuming we know the value at $t=0$, which we'll assume we do).  It is not obvious yet, but if we can do that, we'll be a lot closer to having our function of $t$ that we want, $Z_t$. 
 
-Which, simplifying again (and this is where I stopped for the night):
+So let's say we have $n$ partitions of our interval $[0,t]$, and we add up $n$ versions of $\Delta f$ values.  Then our $t$ and $h$ would be:
 
-$$Z_t^{\infty} = \int_{0}^{t}df = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_{s}) ds + \frac{\partial f}{\partial x}(t,X_{t}) *\left[\int_{s=0}^{s=t} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]    + ... $$
+$$t = \frac{it}{n}, h = \frac{t}{n}$$
 
-$$... + \lim \sum_{i=1}^{i = n}\frac{1}{2}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {\left[\int_{s=ih}^{s=ih+h} \mu_sds + \int_{s=ih}^{s=ih+h} \sigma_sdW_s\right]}^2 =$$
+And we could sum the equation and reorder the last two terms:
+
+$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *[\Delta P_t+ \Delta Q_t] +  \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + ... $$
+
+
+$$...   + \sum_{i=1}^{i = n} \frac{\partial^2 f}{\partial t \partial x}(ih,X_{ih}) *h*[\Delta P_t+ \Delta Q_t] + \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {[\Delta P_t+ \Delta Q_t]}^2$$
+
+and simplifying and collecting terms:
+
+
+$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *[\Delta P_t] + \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *[\Delta Q_t] +  $$
+
+
+$$ \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + \sum_{i=1}^{i = n} \frac{\partial^2 f}{\partial t \partial x}(ih,X_{ih}) *h*[\Delta P_t] + ... $$
+
+
+
+$$...   + \sum_{i=1}^{i = n} \frac{\partial^2 f}{\partial t \partial x}(ih,X_{ih}) *h*[ \Delta Q_t]+ \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) * {[\Delta P_t+ \Delta Q_t]}^2$$
+
+And squaring the $\Delta P_t$ and $\Delta Q_t$ terms and splitting across the sum:
+
+
+
+$$Z_t^n = \sum_{i=1}^{i = n} \Delta f\left(ih,h\right) = \sum_{i=1}^{i = n} \frac{\partial f}{\partial t}(ih,X_{ih}) *h + \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *[\Delta P_t] + \sum_{i=1}^{i = n}\frac{\partial f}{\partial x}(ih,X_{ih}) *[\Delta Q_t] +  $$
+
+
+$$ \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial t}^2}(ih,X_{ih}) * {h}^2 + \sum_{i=1}^{i = n} \frac{\partial^2 f}{\partial t \partial x}(ih,X_{ih}) *h*[\Delta P_t]  + \sum_{i=1}^{i = n} \frac{\partial^2 f}{\partial t \partial x}(ih,X_{ih}) *h*[ \Delta Q_t]+ ... $$
+
+
+
+$$...  + \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}) {\Delta P_t}^2 + \frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}){\Delta Q_t}^2 + 2\frac{1}{2}\sum_{i=1}^{i = n}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih})\Delta Q_t \Delta P_t$$
+
+And now we take the limit at $n$ approaches $\infty$, and a bunch of terms cancel. :
+
+
+$$Z_t^\infty = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) d P_s + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) d Q_s +  $$
+
+
+$$...  +  \frac{1}{2}\sum_{i=1}^{i = \infty}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}){\Delta Q_t}^2 $$
+
+And focusing on the top line, we can substitute back in for $P_s$ and $Q_s$:
+
+
+$$Z_t^\infty = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) \mu_s d s + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) \sigma_sdW_s +  $$
+
+
+$$...  +  \frac{1}{2}\sum_{i=1}^{i = \infty}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}){\Delta Q_t}^2 $$
+
+And again focusing on the top line, we can combine like terms:
+
+$$Z_t^\infty = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s)  ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) \sigma_sdW_s +  $$
+
+
+$$...  +  \frac{1}{2}\sum_{i=1}^{i = \infty}\frac{\partial^2 f}{{\partial x}^2}(ih,X_{ih}){\Delta Q_t}^2 $$
+
+And now we focus on the bottom line and given that ${\Delta Q_t}^2$ approaches ${\sigma _t}^2dt$, we get:
+
+
+$$Z_t^\infty = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s)  ds + \int_{s=0}^{s=t}\frac{\partial f}{\partial x}(s,X_s) \sigma_sdW_s +  $$
+
+
+$$...  +  \frac{1}{2}\int_{s=0}^{s=t}\frac{\partial^2 f}{{\partial x}^2}(s,X_s) {\sigma _s}^2 ds $$
+
+And now we can combine like terms again, and we have ito's formula:
+
+
+$$Z_t = f(t,X_t) - f(0,X_0) = \int_{s=0}^{s=t} \frac{\partial f}{\partial t}(s,X_s) + \mu_s \frac{\partial f}{\partial x}(s,X_s) + \frac{1}{2}{\sigma _s}^2\frac{\partial^2 f}{{\partial x}^2}(s,X_s)  ds + \int_{s=0}^{s=t}\sigma_s\frac{\partial f}{\partial x}(s,X_s) dW_s   $$
+
 
 \end{document}
