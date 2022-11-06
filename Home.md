@@ -4,11 +4,11 @@
 
 In this section, I want to give two views on conditional probabilities and show how they coincide. The first view is very early in a probability textbook:
 
-$$P(A|B) = \frac{P(A \cap  B)}{P(B)}$$
+\\[P(A\|B) = \frac{P(A \cap  B)}{P(B)}\\]
 
-Also please note that it might appear that $P(A|B)$ is proportional to $P(A)$ perhaps by a proportionality factor such as $1/P(B)$, but that is not true because $P(A)$ is not proportional to $P(A \cap  B)$.  They are truly different distrubutions.  Thus, $P(A|B)$ is totally different from $P(A)$, because $P(A \cap  B)$ is totally different from $P(A)$, which is the crutial insight.  The only situation in which they would be similar would be if $A$ and $B$ are independent, at which point the scaling intuition would be true. 
+Also please note that it might appear that \\(P(A\|B)\\) is proportional to \\(P(A)\\) perhaps by a proportionality factor such as \\(1/P(B)\\), but that is not true because $P(A)$ is not proportional to $P(A \cap  B)$.  They are truly different distrubutions.  Thus, $P(A\|B)$ is totally different from $P(A)$, because $P(A \cap  B)$ is totally different from $P(A)$, which is the crutial insight.  The only situation in which they would be similar would be if $A$ and $B$ are independent, at which point the scaling intuition would be true. 
 
-Next, I want to explain how if two random variables ($X_1$ and $X_2$) are defined on the same event space, observing one random variable, say $X_1$, filters your event space into a smaller event space, and now there is a new random variable that is $X_2$ restricted to that smaller event space. Let's call the value we observe $x_1$.  The new, restricted, event space is $X_1^{-1}(x_1)$, which means it is the inverse image of $x_1$ under the random variable (aka function) $X_1$.  Our notation for this is $X_2 | X_1 = x_1$. Also note that the probability measure defined on the original event space is now modified to a new measure which depends on the observed value of $X_1$.  This measure (of course) adds up to 1, and those elements in the event space previously added up to less than or equal to 1, so in general they get bigger, but the probability of each element does not necessarily increase.  Also, they are not scaled linearly or anything like that -- we do not know how they change until we know the two random variables.
+Next, I want to explain how if two random variables ($X_1$ and $X_2$) are defined on the same event space, observing one random variable, say $X_1$, filters your event space into a smaller event space, and now there is a new random variable that is $X_2$ restricted to that smaller event space. Let's call the value we observe $x_1$.  The new, restricted, event space is $X_1^{-1}(x_1)$, which means it is the inverse image of $x_1$ under the random variable (aka function) $X_1$.  Our notation for this is $X_2 \| X_1 = x_1$. Also note that the probability measure defined on the original event space is now modified to a new measure which depends on the observed value of $X_1$.  This measure (of course) adds up to 1, and those elements in the event space previously added up to less than or equal to 1, so in general they get bigger, but the probability of each element does not necessarily increase.  Also, they are not scaled linearly or anything like that -- we do not know how they change until we know the two random variables.
 
 # Stochastic Process Introduction
 
@@ -30,7 +30,7 @@ At our initial time, we have no idea which of these trajectories the stock will 
 
 ![](filtration_part_2.png)
 
-So now we have information about which of the original trajectories are still possible, and which ones are impossible. This is called a filtration, and in our case, we have the filtration at time 3.5, so we will call it$\mathcal{F}_{3.5}$, but in general, it would be $\mathcal{F}_{t}$.
+So now we have information about which of the original trajectories are still possible, and which ones are impossible. This is called a filtration, and in our case, we have the filtration at time 3.5, so we will call it  \\(\mathcal{F}_{3.5}\\) , but in general, it would be \\(\mathcal{F}_t \\) .
 
 So now we want to figure out what happens to our stochastic process $X_t$ given the information (aka filtration) we know at time 3.5. What the filtration does is filter out all the trajectories that cannot be the case, and it leaves in all the remaining possible trajectories.  The picture is:
 
@@ -38,11 +38,11 @@ So now we want to figure out what happens to our stochastic process $X_t$ given 
 
 You'll notice that the trajectories that don't align with our filtration are gray, and the events in the sample space that correspond to those trajectories are also gray.  And the trajectories that are possible are still black, and their corresponding events are also still black.
 
-This should feel like a conditional probability, and that's exactly what's happening. We want $Y_t := X_t | \mathcal{F}_{3.5}$.  Thus, $Y_t$ is given by the following drawing:
+This should feel like a conditional probability, and that's exactly what's happening. We want $Y_t := X_t \| \mathcal{F}_{3.5}$.  Thus, $Y_t$ is given by the following drawing:
 
 ![](Filtration_Part_4.png)
 
-At this point, we've really explained a lot.  One last part you might be wondering is what would happen if we changed the 3.5.  And you'd be right. So our $Y_t$ is dependent upon our observation duration. So I'll ammend our notation to be $X_t(s) := X_t | \mathcal{F}_{s}$, which means that the stochastic process we get (a.k.a. remaining trajectories) depends on how long we observe.  So we could say that $Y_t = X_t(3.5)$.  So let's draw another picture for another time, say 4.5. We will start with what we've observed by time = 4.5:
+At this point, we've really explained a lot.  One last part you might be wondering is what would happen if we changed the 3.5.  And you'd be right. So our $Y_t$ is dependent upon our observation duration. So I'll ammend our notation to be $X_t(s) := X_t \| \mathcal{F}_{s}$, which means that the stochastic process we get (a.k.a. remaining trajectories) depends on how long we observe.  So we could say that $Y_t = X_t(3.5)$.  So let's draw another picture for another time, say 4.5. We will start with what we've observed by time = 4.5:
 
 ![](filtration_4.5.png)
 
@@ -67,9 +67,13 @@ Here is the best way I know to think about stochastic differentiation and integr
 ![](stochastic_image.png)
 
 $$X_t = x : \Omega \rightarrow \left(\mathbb{R}^+ \rightarrow  \mathbb{R} \right)$$ 
+
 $$x(\varsigma_1) = f_1(t)$$
+
 $$x(\varsigma_2) = f_2(t)$$
+
 $$x(\varsigma) = f_\varsigma(t)$$
+
 
 And note that $x$ is simply a deterministic function.  Also note that we can partially apply and curry however we want, so we also have the following, which will be useful in the following section:
 
@@ -88,7 +92,9 @@ Side note that this does not work in Brownian Motion because the individual traj
 Also note that we are using the prime notation for a derivative, but it is a partial derivative. That's okay because $\Omega$ isn't necessarily a continuous variable like $t$ is, so when we're differentiating, it is understood that we're differentiating with respect to the only reasonable option, $t$.
 
 ## Integration
+
 We have that:
+
 $$\int X_t= \int_{s = 0}^{s = t} X_s ds = \int_{s = 0}^{s = t} x\left(\varsigma,s\right) ds = \int_{s = 0}^{s = t} f_\varsigma\left(s\right) ds  = h\left(\varsigma,t\right)$$
 
 Which means that $\int X_t$ is just the probability weighted integrals of the trajectories.  Which, just like $x$ and $g$, is just a deterministic function of $\varsigma$ and $t$
@@ -96,6 +102,7 @@ Which means that $\int X_t$ is just the probability weighted integrals of the tr
 I think we can do this with Brownian Motion because even though Brownian Motion trajectories are not (in the normal sense) differentiable, they are integrable.
 
 ## Differentiation and Integration Example
+
 Suppose there are only two states of the world, Heads and Tails.  And if Heads is flipped, our world is $x^2 + 2$ and if Tails is flipped, we get $1$.  Our process is:
 
 ![](ExampleProcess.png)
@@ -116,11 +123,13 @@ $$\int X_t = \begin{cases}
     t + C_2 & T 
  \end{cases}
 $$
+
 $$X_t = \begin{cases} 
     t^2 + 2 & H \\
     1 & T 
  \end{cases}
 $$
+
 $$X'_t = \begin{cases} 
     2t & H \\
     0 & T 
@@ -148,6 +157,7 @@ Which, you will notice, is in the form of an Ito process, which is the goal.  It
 Let's try to approximate $f$ with a Taylor Series.  The statement is the following (and accompanied with the same thing with explicit dependencies):
 
 $$\Delta f = \frac{df}{dt} * \Delta t$$
+
 $$\Delta f(t, \Delta t) = \frac{df}{dt}(t) * \Delta t$$
 
 Where $\Delta f$ is the name of a function, and it now depends on two things: $x$ and $\Delta t$.  What about an approximation with a second order term?  In one dimension, we could have:
@@ -201,7 +211,9 @@ $$ =  X_{t+h} - X_t = \int_{s=0}^{s=t+h} \mu_sds - \int_{s=0}^{s=t} \mu_sds+ \in
 We now make a temporary notation switch so our work in a few steps will be cleaner, and we will substitute it in:
 
 $$P_t := \int_{s=0}^{s=t} \mu_sds$$
+
 $$Q_t := \int_{s=0}^{s=t} \sigma_sdW_s$$
+
 $$  X_{t+h} - X_t = P_{t+h} -P_t+ Q_{t+h} - Q_t$$
 
 Now plug this in for the step above the Ito Process. 
